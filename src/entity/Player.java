@@ -12,7 +12,7 @@ public class Player extends Entity{
 	KeyHandler KeyH;
 	
 	public final int screenX, screenY;
-	int hasKey = 0;
+	public int hasKey = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
@@ -134,6 +134,7 @@ public class Player extends Entity{
 					gp.playSE(1);
 					hasKey++;
 					gp.obj[i] = null;
+					gp.userInterface.showMessage("You got a key!");
 					break;
 					
 				case "Door":
@@ -143,7 +144,12 @@ public class Player extends Entity{
 						gp.playSE(3);
 						gp.obj[i] = null;
 						hasKey--;
+						gp.userInterface.showMessage("You opened a door!");
 					}
+					else {
+						gp.userInterface.showMessage("You need a key!");
+					}
+					
 					break;
 					
 				case "Boots":
@@ -151,9 +157,19 @@ public class Player extends Entity{
 					gp.playSE(2);
 					speed ++;
 					gp.obj[i] = null;
+					gp.userInterface.showMessage("Speed up!!");
+					
 					break;
 					
-				default: break;
+				case "Chest":
+					gp.userInterface.gameFinished = true;
+					gp.stopMusic();
+					gp.playSE(4);
+					
+					break;
+					
+				default: 
+					break;
 			}
 		}
 	}
@@ -166,29 +182,54 @@ public class Player extends Entity{
 		
 			case "up":
 				
-				if(spriteNum == 1) image = up1;
-				if(spriteNum == 2) image = up2;
+				if(spriteNum == 1) {
+					image = up1;
+				}
+				
+				if(spriteNum == 2) {
+					image = up2;
+				}
+				
 				break;
 				
 			case "down":
 				
-				if(spriteNum == 1) image = down1;
-				if(spriteNum == 2) image = down2;
+				if(spriteNum == 1) {
+					image = down1;
+				}
+				
+				if(spriteNum == 2) {
+					image = down2;
+				}
+				
 				break;
 				
 			case "left":
 				
-				if(spriteNum == 1) image = left1;
-				if(spriteNum == 2) image = left2;
+				if(spriteNum == 1) {
+					image = left1;
+				}
+				
+				if(spriteNum == 2) {
+					image = left2;
+				}
+				
 				break;
 				
 			case "right":
 				
-				if(spriteNum == 1) image = right1;
-				if(spriteNum == 2) image = right2;
+				if(spriteNum == 1) {
+					image = right1;
+				}
+				
+				if(spriteNum == 2) {
+					image = right2;
+				}
+				
 				break;
 			
-			default: break;
+			default: 
+				break;
 		}
 		
 		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);

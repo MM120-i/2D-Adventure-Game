@@ -12,7 +12,6 @@ public class Player extends Entity{
 	KeyHandler KeyH;
 	
 	public final int screenX, screenY;
-	public int hasKey = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
@@ -39,22 +38,34 @@ public class Player extends Entity{
 	
 	public void getPlayerImage() {
 		
+		up1 = setup("boy_up_1");
+		up2 = setup("boy_up_2");
+		
+		down1 = setup("boy_down_1");
+		down2 = setup("boy_down_2");
+		
+		left1 = setup("boy_left_1");
+		left2 = setup("boy_left_2");
+		
+		right1 = setup("boy_right_1");
+		right2 = setup("boy_right_2");
+	}
+	
+	public BufferedImage setup(String imageName) {
+		
+		UtilityTool uTool = new UtilityTool();
+		BufferedImage image = null;
+		
 		try {
 			
-			up1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_1.png"));
-			up2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_up_2.png"));
-			down1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_1.png"));
-			down2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_down_2.png"));
-			left1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_1.png"));
-			left2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_left_2.png"));
-			right1 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_1.png"));
-			right2 = ImageIO.read(getClass().getResourceAsStream("/player/boy_right_2.png"));
-			
+			image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
+			image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
 		}
 		catch(IOException e) {
-			
 			e.printStackTrace();
 		}
+		
+		return image;
 	}
 	
 	public void update() {
@@ -123,55 +134,8 @@ public class Player extends Entity{
 	
 	public void pickUpObject(int i) {
 		
-		if(i != 999) {
-			
-			String objectName = gp.obj[i].name;
-			
-			switch(objectName) {
-				
-				case "Key":
-					
-					gp.playSE(1);
-					hasKey++;
-					gp.obj[i] = null;
-					gp.userInterface.showMessage("You got a key!");
-					break;
-					
-				case "Door":
-					
-					if(hasKey > 0) {
-						
-						gp.playSE(3);
-						gp.obj[i] = null;
-						hasKey--;
-						gp.userInterface.showMessage("You opened a door!");
-					}
-					else {
-						gp.userInterface.showMessage("You need a key!");
-					}
-					
-					break;
-					
-				case "Boots":
-					
-					gp.playSE(2);
-					speed ++;
-					gp.obj[i] = null;
-					gp.userInterface.showMessage("Speed up!!");
-					
-					break;
-					
-				case "Chest":
-					gp.userInterface.gameFinished = true;
-					gp.stopMusic();
-					gp.playSE(4);
-					
-					break;
-					
-				default: 
-					break;
-			}
-		}
+		if(i != 999) {}
+
 	}
 	
 	public void draw(Graphics2D g2) {
@@ -232,7 +196,7 @@ public class Player extends Entity{
 				break;
 		}
 		
-		g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
+		g2.drawImage(image, screenX, screenY, null);
 	}
 
 }

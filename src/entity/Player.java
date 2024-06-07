@@ -8,14 +8,14 @@ import main.*;
 
 public class Player extends Entity{
 	
-	GamePanel gp;
 	KeyHandler KeyH;
 	
 	public final int screenX, screenY;
 	
 	public Player(GamePanel gp, KeyHandler keyH) {
 		
-		this.gp = gp;
+		super(gp);
+		
 		this.KeyH = keyH;
 		screenX = gp.screenWidth/2 - (gp.tileSize/2);
 		screenY = gp.screenHeight/2 - (gp.tileSize/2);

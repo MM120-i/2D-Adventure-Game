@@ -6,7 +6,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener{
 	
 	GamePanel gp;
-	public boolean upPressed, downPressed, leftPressed, rightPressed;
+	public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
 	
 	//debug
 	boolean checkDrawTime = false;
@@ -23,40 +23,54 @@ public class KeyHandler implements KeyListener{
 		
 		int code = e.getKeyCode();
 		
-		if(code == KeyEvent.VK_W) {
-			upPressed = true;
-		}
-		
-		if(code == KeyEvent.VK_S) {
-			downPressed = true;
-		}
-		
-		if(code == KeyEvent.VK_A) {
-			leftPressed = true;
-		}
-		
-		if(code == KeyEvent.VK_D) {
-			rightPressed = true;
-		}
-		
-		if(code == KeyEvent.VK_P) {
+		// play state
+		if(gp.gameState == gp.playState) {
 			
-			if(gp.gameState == gp.playState) {
+			if(code == KeyEvent.VK_W) {
+				upPressed = true;
+			}
+			
+			if(code == KeyEvent.VK_S) {
+				downPressed = true;
+			}
+			
+			if(code == KeyEvent.VK_A) {
+				leftPressed = true;
+			}
+			
+			if(code == KeyEvent.VK_D) {
+				rightPressed = true;
+			}
+			
+			if(code == KeyEvent.VK_P) {
 				gp.gameState = gp.pauseState;
 			}
-			else if(gp.gameState == gp.pauseState) {
+			
+			if(code == KeyEvent.VK_ENTER) {
+				enterPressed = true;
+			}
+			
+			// debug
+			if(code == KeyEvent.VK_T) {
+				
+				if(!checkDrawTime) {
+					checkDrawTime = true;
+				}
+				else{
+					checkDrawTime = false;
+				}
+			}	
+		}
+		else if(gp.gameState == gp.pauseState) { 		// paused state
+			
+			if(code == KeyEvent.VK_P) {
 				gp.gameState = gp.playState;
 			}
-		}
-		
-		// debug
-		if(code == KeyEvent.VK_T) {
+		}		
+		else if(gp.gameState == gp.dialogueState) {		// dialogue state
 			
-			if(!checkDrawTime) {
-				checkDrawTime = true;
-			}
-			else{
-				checkDrawTime = false;
+			if(code == KeyEvent.VK_ENTER) {
+				gp.gameState = gp.playState;
 			}
 		}
 	}

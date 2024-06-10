@@ -100,13 +100,13 @@ public class KeyHandler implements KeyListener{
 						case 1:
 							System.out.println("Do some theif specific stuff");
 							gp.gameState = gp.playState;
-							//gp.playMusic(0);
+							//gp.playMusic(0); 				ENABLE MUSIC LATER
 							break;
 							
 						case 2:
 							System.out.println("Do some sorcerer specific stuff");
 							gp.gameState = gp.playState;
-							//gp.playMusic(0);
+							//gp.playMusic(0);				ENABLE MUSIC LATER
 							break;
 						
 						case 3:

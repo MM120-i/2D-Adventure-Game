@@ -5,9 +5,7 @@ import javax.swing.*;
 public class Main {
 
 	public static void main(String[] args) {
-		
-		// at https://www.youtube.com/watch?v=_SJU99LU1IQ&ab_channel=RyiSnow
-				
+						
 		JFrame window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);

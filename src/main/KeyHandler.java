@@ -23,6 +23,103 @@ public class KeyHandler implements KeyListener{
 		
 		int code = e.getKeyCode();
 		
+		// title state
+		if(gp.gameState == gp.titleState) {
+			
+			if(gp.userInterface.titleScreenState == 0) {
+				
+				if(code == KeyEvent.VK_W) {
+
+					gp.userInterface.commandNum--;
+					
+					if(gp.userInterface.commandNum < 0) {
+						gp.userInterface.commandNum = 2;
+					}
+				}
+				
+				if(code == KeyEvent.VK_S) {
+					
+					gp.userInterface.commandNum++;
+					
+					if(gp.userInterface.commandNum > 2) {
+						gp.userInterface.commandNum = 0;
+					}
+				}
+				
+				if(code == KeyEvent.VK_ENTER) {
+					
+					switch(gp.userInterface.commandNum) {
+						
+						case 0:
+							gp.userInterface.titleScreenState = 1;
+							break;
+							
+						case 1:
+							// TODO: LOAD GAME FUNCTIONALITY, ADD LATER
+							break;
+							
+						case 2:
+							System.exit(0);
+							break;
+							
+						default:
+							break;
+					}
+				}
+			}
+			else if(gp.userInterface.titleScreenState == 1) {
+				
+				if(code == KeyEvent.VK_W) {
+
+					gp.userInterface.commandNum--;
+					
+					if(gp.userInterface.commandNum < 0) {
+						gp.userInterface.commandNum = 3;
+					}
+				}
+				
+				if(code == KeyEvent.VK_S) {
+					
+					gp.userInterface.commandNum++;
+					
+					if(gp.userInterface.commandNum > 3) {
+						gp.userInterface.commandNum = 0;
+					}
+				}
+				
+				if(code == KeyEvent.VK_ENTER) {
+					
+					switch(gp.userInterface.commandNum) {
+						
+						case 0:
+							System.out.println("Do some fighter specific stuff");
+							gp.gameState = gp.playState;
+							//gp.playMusic(0);				ENABLE MUSIC LATER
+							break;
+							
+						case 1:
+							System.out.println("Do some theif specific stuff");
+							gp.gameState = gp.playState;
+							//gp.playMusic(0);
+							break;
+							
+						case 2:
+							System.out.println("Do some sorcerer specific stuff");
+							gp.gameState = gp.playState;
+							//gp.playMusic(0);
+							break;
+						
+						case 3:
+							gp.userInterface.titleScreenState = 0;
+							break;
+							
+						default:
+							break;
+					}
+				}
+			}
+		}
+		
 		// play state
 		if(gp.gameState == gp.playState) {
 			

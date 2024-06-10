@@ -1,7 +1,11 @@
 package main;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+
+import javax.swing.JPanel;
 
 import entity.Entity;
 import entity.Player;
@@ -47,6 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public final int playState = 1;
 	public final int pauseState = 2;
 	public final int dialogueState = 3;
+	public final int titleState = 0;
 	
 	public GamePanel() {
 		Dimension dim = new Dimension(screenWidth, screenHeight);
@@ -61,10 +66,9 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		aSetter.setObject();
 		aSetter.setNPC();
-		playMusic(0);
-		stopMusic();		// Stopped cuz the music gets annoying while debugging 
-		
-		gameState = playState;
+		//playMusic(0);
+		//stopMusic();		// Stopped cuz the music gets annoying while debugging 
+		gameState = titleState;
 	}
 	
 	public void startGameThread() {
@@ -151,30 +155,39 @@ public class GamePanel extends JPanel implements Runnable{
 			drawStart = System.nanoTime();
 		}
 		
-		// tile
-		tileM.draw(g2);
-		
-		// object
-		for(int i = 0; i < obj.length; i++) {
+		// title screen
+		if(gameState == titleState) {
 			
-			if(obj[i] != null) {
-				obj[i].draw(g2, this);
+			userInterface.draw(g2);
+		}
+		else {
+			
+			// tile
+			tileM.draw(g2);
+			
+			// object
+			for(int i = 0; i < obj.length; i++) {
+				
+				if(obj[i] != null) {
+					obj[i].draw(g2, this);
+				}
 			}
+			
+			// npc
+			for(int i = 0; i < npc.length; i++) {
+				
+				if(npc[i] != null) {
+					npc[i].draw(g2);
+				}
+			}
+			
+			// PLAYER
+			player.draw(g2);
+			
+			// UI
+			userInterface.draw(g2);
 		}
 		
-		// npc
-		for(int i = 0; i < npc.length; i++) {
-			
-			if(npc[i] != null) {
-				npc[i].draw(g2);
-			}
-		}
-		
-		// PLAYER
-		player.draw(g2);
-		
-		// UI
-		userInterface.draw(g2);
 		
 		// debug
 		if(keyH.checkDrawTime) {
